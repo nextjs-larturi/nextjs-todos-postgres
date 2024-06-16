@@ -27,3 +27,9 @@ npx prisma migrate dev
 
 npx prisma generate
 ```
+
+5. Run seed to create fake todos in the database
+
+```bash
+localhost:3000/api/seed
+```

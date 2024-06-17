@@ -12,7 +12,8 @@ export async function GET(request: Request) {
 
   const todos = await prisma.todo.findMany({
     take,
-    skip
+    skip,
+    orderBy: { createdAt: 'desc' }
   })
 
   return NextResponse.json(todos)
@@ -36,5 +37,18 @@ export async function POST(request: Request) {
       { message: `Invalid body. Only allowed: [${allowedFields}]` },
       { status: 400 }
     )
+  }
+}
+
+// Elimina todos los Todos en estado Complete = true
+export async function DELETE(request: Request) {
+  try {
+    await prisma.todo.deleteMany({
+      where: { complete: true }
+    })
+
+    return NextResponse.json({ message: 'Todos with complete = true deleted' })
+  } catch (error) {
+    return NextResponse.json({ message: 'Error deleting todos' })
   }
 }

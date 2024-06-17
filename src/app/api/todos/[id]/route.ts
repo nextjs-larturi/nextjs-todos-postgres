@@ -49,3 +49,19 @@ export async function PUT(request: Request, { params }: Segments) {
     return NextResponse.json({ message: `Invalid body. Only allowed: [${allowedFields}]` })
   }
 }
+
+export async function DELETE(request: Request, { params }: Segments) {
+  const { id } = params
+  const todo = await getTodo(id)
+
+  if (!todo) {
+    return NextResponse.json({ message: `Todo with id ${params.id} not found` }, { status: 404 })
+  }
+
+  try {
+    const deletedTodo = await prisma.todo.delete({ where: { id } })
+    return NextResponse.json(deletedTodo)
+  } catch (error) {
+    return NextResponse.json({ message: `Error deleting todo` })
+  }
+}

@@ -4,19 +4,28 @@ import { FormEvent, useState } from 'react'
 import { IoTrashOutline } from 'react-icons/io5'
 
 import * as todosApi from '@/todos/helpers/todos-helper'
-import { useRouter } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
+import { addTodoAction } from '../actions/todo-actions'
 
 export default function NewTodo() {
   const [description, setDescription] = useState('')
   const router = useRouter()
+
+  const pathName = usePathname()
 
   const onSubmit = async (e: FormEvent) => {
     e.preventDefault()
 
     if (description.trim().length === 0) return
 
-    todosApi.createTodo(description)
-    router.refresh()
+    if (pathName === '/dashboard/server-actions-todos') {
+      console.log('server-actions-todos')
+      addTodoAction(description)
+    } else {
+      console.log('rest-todos')
+      todosApi.createTodo(description)
+      router.refresh()
+    }
   }
 
   const deleteCompleted = () => {

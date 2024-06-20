@@ -5,7 +5,7 @@ import { IoTrashOutline } from 'react-icons/io5'
 
 import * as todosApi from '@/todos/helpers/todos-helper'
 import { usePathname, useRouter } from 'next/navigation'
-import { addTodoAction } from '../actions/todo-actions'
+import { addTodoAction, deleteTodoAction } from '../actions/todo-actions'
 
 export default function NewTodo() {
   const [description, setDescription] = useState('')
@@ -26,11 +26,19 @@ export default function NewTodo() {
       todosApi.createTodo(description)
       router.refresh()
     }
+
+    setDescription('')
   }
 
   const deleteCompleted = () => {
-    todosApi.deleteCompletedTodos()
-    router.refresh()
+    if (pathName === '/dashboard/server-actions-todos') {
+      console.log('server-actions-todos')
+      deleteTodoAction()
+    } else {
+      console.log('rest-todos')
+      todosApi.deleteCompletedTodos()
+      router.refresh()
+    }
   }
 
   return (

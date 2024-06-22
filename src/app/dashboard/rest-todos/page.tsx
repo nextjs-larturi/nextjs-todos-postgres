@@ -14,11 +14,13 @@ export default async function RestTodosPage() {
 
   return (
     <div>
-      <h1 className='text-4xl mt-2 mb-10'>REST Todos</h1>
+      <h1 className='text-4xl'>REST Todos</h1>
+      <hr className='mb-5 mt-3' />
 
-      <div className='w-full px-5 mx-5 mb-5'>
+      <div className='w-full px-5 mx-5 mb-5 mt-8'>
         <NewTodo />
       </div>
+
       <TodosGrid todos={todos} />
     </div>
   )

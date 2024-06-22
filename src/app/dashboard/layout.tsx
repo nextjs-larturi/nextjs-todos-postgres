@@ -7,9 +7,9 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
     <>
       <Sidebar />
 
-      <div className='ml-auto mb-6 lg:w-[75%] xl:w-[80%] 2xl:w-[85%] min-h-screen'>
+      <div className='ml-auto bg-gray-200 mb-6 lg:w-[75%] xl:w-[80%] 2xl:w-[85%] h-[calc(100vh-5px)]'>
         <TopMenu />
-        <div className='px-6 pt-6'>{children}</div>
+        <div className='bg-white rounded-md m-3 p-6 h-[calc(100vh-90px)]'>{children}</div>
       </div>
     </>
   )

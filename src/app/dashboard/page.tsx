@@ -1,11 +1,30 @@
 import { WidgetItem } from '@/components'
+import { getServerSession } from 'next-auth'
 import Link from 'next/link'
+import { authOptions } from '../api/auth/[...nextauth]/route'
+import { redirect } from 'next/navigation'
 
-export default function DashboardPage() {
+export default async function DashboardPage() {
+  const session = await getServerSession(authOptions)
+
+  if (!session) {
+    redirect('/api/auth/signin')
+  }
+
   return (
     <div>
       <h1 className='text-4xl'>Wellcome Cynthia!</h1>
       <hr className='mb-5 mt-3' />
+
+      <div className='flex flex-col mt-6'>
+        <WidgetItem title='User conected (server side)'>
+          <div>
+            <div className='text-sm text-center text-gray-600'>Name: {session.user?.name}</div>
+            <div className='text-sm text-center text-gray-600'>Email: {session.user?.email}</div>
+            <div className='text-sm text-center text-gray-600'>Image: {session.user?.image}</div>
+          </div>
+        </WidgetItem>
+      </div>
 
       <div className='grid gap-6 md:grid-cols-2 lg:grid-cols-3 mt-6'>
         <Link href='/dashboard/rest-todos'>

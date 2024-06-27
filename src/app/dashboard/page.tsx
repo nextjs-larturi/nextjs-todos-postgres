@@ -13,7 +13,7 @@ export default async function DashboardPage() {
 
   return (
     <div>
-      <h1 className='text-4xl'>Wellcome Cynthia!</h1>
+      <h1 className='text-4xl'>Wellcome {session.user?.name ?? ''}!</h1>
       <hr className='mb-5 mt-3' />
 
       <div className='flex flex-col mt-6'>

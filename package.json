@@ -10,7 +10,6 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@prisma/client": "^5.15.1",
     "cookies-next": "^4.2.1",
     "next": "14.2.4",
     "next-auth": "^4.24.4",
@@ -20,6 +19,8 @@
     "yup": "^1.4.0"
   },
   "devDependencies": {
+    "@auth/prisma-adapter": "^2.4.1",
+    "@prisma/client": "^5.16.0",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",

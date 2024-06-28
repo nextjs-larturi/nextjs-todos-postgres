@@ -19,9 +19,16 @@ export default async function DashboardPage() {
       <div className='flex flex-col mt-6'>
         <WidgetItem title='User conected (server side)'>
           <div>
+            <div className='text-sm text-center text-gray-600'>Id: {session.user?.id}</div>
             <div className='text-sm text-center text-gray-600'>Name: {session.user?.name}</div>
             <div className='text-sm text-center text-gray-600'>Email: {session.user?.email}</div>
             <div className='text-sm text-center text-gray-600'>Image: {session.user?.image}</div>
+            <div className='text-sm text-center text-gray-600'>
+              Active: {session.user?.isActive ? 'true' : 'false'}
+            </div>
+            <div className='text-sm text-center text-gray-600'>
+              Roles: {session.user?.roles?.join(', ')}
+            </div>
           </div>
         </WidgetItem>
       </div>

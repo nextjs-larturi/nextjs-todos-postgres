@@ -55,6 +55,7 @@ export default function Sidebar({ session }: Props) {
     'https://tailus.io/sources/blocks/stats-cards/preview/images/second_user.webp'
 
   const userName = session?.user?.name ?? 'Anonymous'
+  const userRoles = session?.user?.roles ?? ['user']
 
   return (
     <>
@@ -81,7 +82,7 @@ export default function Sidebar({ session }: Props) {
               height={100}
             />
             <h5 className='hidden mt-4 text-xl font-semibold text-gray-600 lg:block'>{userName}</h5>
-            <span className='hidden text-gray-400 lg:block'>Admin</span>
+            <span className='hidden text-gray-400 lg:block'>{userRoles.join(', ')}</span>
           </div>
 
           <ul className='space-y-2 tracking-wide mt-8'>

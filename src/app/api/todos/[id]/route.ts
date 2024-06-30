@@ -1,3 +1,4 @@
+import { getServerUserSession } from '@/auth/actions/auth-actions'
 import prisma from '@/lib/prisma'
 import { Todo } from '@prisma/client'
 import { NextResponse } from 'next/server'
@@ -9,9 +10,15 @@ interface Segments {
   }
 }
 
-const getTodo = async (id: string): Promise<Todo | undefined> => {
+const getTodo = async (id: string): Promise<Todo | null> => {
+  const user = await getServerUserSession()
+
+  if (!user) return null
+
   const todo = await prisma.todo.findUnique({ where: { id } })
-  if (!todo) return undefined
+  if (!todo) return null
+
+  if (todo?.userId !== user?.id) return null
 
   return todo
 }

@@ -1,8 +1,10 @@
 'use server'
 
+import { getServerUserSession } from '@/auth/actions/auth-actions'
 import prisma from '@/lib/prisma'
 import { Todo } from '@prisma/client'
 import { revalidatePath } from 'next/cache'
+import { redirect } from 'next/navigation'
 
 export const sleep = async (seconds: number = 0) => {
   return new Promise((resolve) => {
@@ -29,7 +31,11 @@ export const toggleTodoAction = async (id: string, complete: boolean): Promise<T
 
 export const addTodoAction = async (description: string) => {
   try {
-    const todo = await prisma.todo.create({ data: { description } })
+    const user = await getServerUserSession()
+
+    if (!user) redirect('/api/auth/signin')
+
+    const todo = await prisma.todo.create({ data: { description, userId: user!.id } })
 
     revalidatePath('/dashboard/server-actions-todos')
 
